@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!-- Coding by CodingSmith | https://youtube.com/@codingsmith1?si=n4BXyHpyXn9oYemx -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discount Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Mukta', sans-serif;
+        }
+
+        body {
+            background: #edf1f4;
+            display: grid;
+            height: 100vh;
+            place-items: center;
+        }
+
+        .container {
+            background: #FFFFFF;
+            box-shadow: 0px 0px 30px rgb(36 46 55 / 4%);
+            max-width: 500px;
+            width: 400px;
+            margin: 0 auto;
+            padding: 25px;
+            border-radius: 30px;
+            position: relative;
+            display: block;
+        }
+
+        h1 {
+            color: #1d1d1d;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        input::placeholder {
+            color: #acabac;
+            font-weight: 500;
+        }
+
+        input:focus {
+            border: 2px solid #0071ff !important;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px 30px;
+            height: 70px;
+            font-size: 16px;
+            border-radius: 30px;
+            font-weight: 500;
+            background: #f6f6f6;
+            outline: none;
+            border: 2px solid #f6f6f6;
+            margin-bottom: 10px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        button {
+            background-color: #0071ff;
+            color: #fff;
+            padding: 10px 30px;
+            font-size: 17px;
+            border: none !important;
+            height: 60px;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 70%;
+            display: flex;
+            margin: 10px auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        #result h3 {
+            font-size: 18px;
+        }
+
+        #result span {
+            color: #0071ff;
+            font-weight: bold;
+        }
+
+        .alert {
+            opacity: 0;
+            padding: 16px;
+            position: absolute;
+            color: #fff;
+            border-radius: 30px;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 30px rgb(36 46 55 / 4%);
+            transition: all 0.3s ease;
+        }
+
+        .alert.active {
+            opacity: 1;
+            top: -170px;
+        }
+
+        .alert button {
+            font-size: 16px;
+            width: 40%;
+            position: absolute;
+            top: 55px;
+            left: 0;
+            right: 0;
+            height: 50px;
+        }
+
+        .alert p {
+            color: #acabac;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Discount Calculator</h1>
+        <label for="Amount">Original Price:</label>
+        <input type="number" id="amount" placeholder="Enter Amount">
+
+        <label for="discount">Discount Percentage:</label>
+        <input type="number" id="discount" placeholder="Enter discount percentage">
+
+        <button onclick="calculateDiscount()">Calculate</button>
+
+        <div id="result">
+            <h3>Discounted Price: $ <span class="discountedPrice"></span></h3>
+            <h3>You saved: $ <span class="savings"></span></h3>
+        </div>
+
+        <div class="alert">
+            <p>Please enter both original price and discount percentage.</p>
+            <button onclick="dismissAlert()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        function calculateDiscount() {
+            var amount = parseFloat(document.getElementById("amount").value);
+            var discount = parseFloat(document.getElementById("discount").value);
+
+            if (isNaN(amount) || isNaN(discount)) {
+                showAlert();
+                return;
+            }
+
+            var discountedPrice = amount - (amount * (discount / 100));
+            var savings = amount - discountedPrice;
+
+            var result = document.getElementById("result");
+            result.querySelector(".discountedPrice").textContent = discountedPrice.toFixed(2);
+            result.querySelector(".savings").textContent = savings.toFixed(2);
+
+            hideAlert();
+        }
+
+        function showAlert() {
+            var alert = document.querySelector(".alert");
+            alert.classList.add("active");
+        }
+
+        function dismissAlert() {
+            var alert = document.querySelector(".alert");
+            alert.classList.remove("active");
+        }
+
+    </script>
